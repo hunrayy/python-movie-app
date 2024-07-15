@@ -1,0 +1,15 @@
+CREATE DATABASE `marvel`
+CREATE TABLE IF NOT EXISTS `user`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(100) NOT NULL,
+    `password` VARCHAR(100) NOT NULL
+)
+CREATE TABLE IF NOT EXISTS `movies`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `image` VARCHAR(100),
+    `title` VARCHAR(100) NOT NULL,
+    `genre` VARCHAR(100) NOT NULL,
+    `description` VARCHAR(100) NOT NULL,
+    `movie` VARCHAR(100)
+)

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>PolluxUI Admin</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/typicons/typicons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/css/vendor.bundle.base.css') }}">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/vertical-layout-light/style.css')}}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.png')}}" />
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css', integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN', crossorigin='anonymous')}}"> -->
+  <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
+</head>
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="navbar-brand-wrapper d-flex justify-content-center">
+        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
+          <a class="navbar-brand brand-logo" href="index.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAyVBMVEX///+wHyTmHiWqAACcHB/kAACvGyDpHiWzKi+0LTKzKC2vFx2aHB+vFhy1Mze2Njr+9vemHSGWAACoHiLlABC3PD/KHSPlDRi+VFbmFx/hHiW7Sk2gHCDlCRX4z9D3w8Tsa27YHiTPHSPAHSKoQUP85ufxmpzAW17629vufX/1trfzqKrpRUnnMTfxlJatAAvEKC3qWFyxQ0WoSkzudXjvhIebAADoO0D97e3rYmauDBXqT1PDZ2nLfoDQjY/Xn6Hdrq/pysvEAADyc9I9AAAEhklEQVR4nO2da1MTWRRFu5PbHTQdoOloHtzICEEREMSRGQVHxf//o+Y2UenHOR2s0sJ9aq+vnA9ZlQ2dhWURRYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEII+aPZlnnol/ULmSQih63DaV/kAV7yT/Jm1hMYv2gdvhzFAgCGGwPJcPa6dYhruC8qJkfNQ1jDxwei4eKseYhrWEiCvcGkeYhrGD+VZ/qscYhrmKai4eRV4xDY0M/FmY4bh8CGhfyzJtmrH05xDeNCnulf9UNkQ3mmvaT+4RTZUJvpce0Q2TD28ie3i9rhdIhs+PweM4U2VGY6PqkeQhvGTp7pafUQ3FCZabWDsQ3zoTzTagdjG8bZ+g6GNdxYGa7vYHBDLwfG4vLuENywyMQfNdUOBjeMs7UdjG7o43UdjG5YZOs6eBfcUJ3pjw6GN/T5mg6GN8zlmd4FBrxhnCmB8b2D8Q3dmg7GN/RZdwfjGxbaTL91ML5h7Lo72IBhmKn8SFx1sAHDIuvsYAOGsevsYAuGvrODLRjmTung238PhjV8dGdYuK4OfpviG4ZvxI4OXhp4D2PvOjp4aeE9DDPVO9iEoT7T0MHL3IKhd3oHL70Fw1yZaRkYNgzDTNV/D156aaZ4hnoHL730JsIZhpkqHRwMnQXDwjnt1zV/e1cYMAwzVTr4IhgKM8Uz9E7p4Fl4e4WZ4hkGD7mDB08zJ8wUzzDMVO7g3jwYtp8XmIZyBw9SJ3wjAhrmTung25laMAzfiHIH93rSNyKgYTlTOTDEmSIaeqd08GBfmCmiYTlTOTAGrj1TRMOOmY7azwtIwzBTuYN7z9szhTTM9Zl6G4blTOXAGBxkzZmiGjov/p+9cqbegmHYYnYtKrZnimkYnhc7x2NtpoUBwzDTnW3RsAyM3IKhdzvRu4n4JhaNmQIYbgqGeXgPnyWiYQgMC4ZxMIzG4gOjOVNkw8uF+Cam9ecFqmEeDI/uNVNUwyIYRnP5w2n9eYFqGJeGZ/eZKazhP8FQmel+babQhtG/8ic3Z8KwXxqeyJ/cRlluwbD80ntxpiEwvBXDSA0MM4ZqYBRIhlsdhtvrZwpuGH2QA6MyU1jD89UX9+RHYmWm6IaRPNP53fMC3lDtYDOGagebMVQ7uDBjqHWwN2OodjC64dWPr8/l335/n6kBQ62DvRnDQ62DzRhqHQxumFYMlQ4e5mYMtQ522IajyoXSwYYMtQ7OzRhqHeygDYfVE62DoQ3T6onWwQWG4RPRMK7dKB3s7RhqHWzHUOvgAtjwcf1oIXewt2OodTCw4Ub9SOtgYMNHjavXcgfnuIabjasXSmDgGm41rrQOxjV80jw7lWda2DFUOvgA1XC42zzTOhjKME2Ho6ur8/Pzfr/fMoyukyQZjxeT2az69B8AGO6OhkGr/GsjV1vTj/99+vzly83R4fvW3fbh0d7xyeW7i9P57R8xWdnOvj7AS/5JNtPpx0+fb27aTjor27NXH67nyW97YYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEII+TX8D7rcbtCnK+1DAAAAAElFTkSuQmCC" alt="logo"/></a>
+          <!-- <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo"/></a> -->
+          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-date dropdown">
+            <a class="nav-link d-flex justify-content-center align-items-center" href="javascript:;">
+              <h6 class="date mb-0">Today : Mar 23</h6>
+              <i class="typcn typcn-calendar"></i>
+            </a>
+          </li>
+          <li class="nav-item dropdown mr-0">
+            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="typcn typcn-bell mx-0"></i>
+              <span class="count"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-success">
+                    <i class="typcn typcn-info mx-0"></i>
+                  </div>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-warning">
+                    <i class="typcn typcn-cog-outline mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal">Settings</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    Private message
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-info">
+                    <i class="typcn typcn-user mx-0"></i> 
+                  </div>
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="typcn typcn-th-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <nav class="navbar-breadcrumb col-xl-12 col-12 d-flex flex-row p-0">
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <ul class="navbar-nav mr-lg-2">
+          <li class="nav-item ml-0">
+            <h4 class="mb-0">Dashboard</h4>
+          </li>
+          <li class="nav-item">
+            <div class="d-flex align-items-baseline">
+              <p class="mb-0">Home</p>
+              <i class="typcn typcn-chevron-right"></i>
+              <p class="mb-0">Main Dahboard</p>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-search d-none d-md-block mr-0">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="search">
+                  <i class="typcn typcn-zoom"></i>
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+              <!-- <div class="badge badge- danger">new</div> -->
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="upload-movie-button" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">Upload Movie</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="typcn typcn-film menu-icon"></i>
+              <span class="menu-title">Edit Movie</span>
+              <!-- <i class="menu-arrow"></i> -->
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">Delete Movie</span>
+              <!-- <i class="menu-arrow"></i> -->
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables" id="view-movies-button">
+              <i class="typcn typcn-th-small-outline menu-icon"></i>
+              <span class="menu-title">View Movies <span class="badge badge-danger">112</span></span>
+              <!-- <i class="menu-arrow"></i> -->
+            </a>
+            <div class="collapse" id="tables">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="typcn typcn-compass menu-icon"></i>
+              <span class="menu-title">Settings</span>
+              <!-- <i class="menu-arrow"></i> -->
+            </a>
+            <div class="collapse" id="icons">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="typcn typcn-user-add-outline menu-icon"></i>
+              <span class="menu-title">User Pages</span>
+              <!-- <i class="menu-arrow"></i> -->
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <span class="menu-title">Error pages</span>
+              <!-- <i class="menu-arrow"></i> -->
+            </a>
+            <div class="collapse" id="error">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://bootstrapdash.com/demo/polluxui-free/docs/documentation.html">
+              <i class="typcn typcn-mortar-board menu-icon"></i>
+              <span class="menu-title">Documentation</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper" id="dashboardcontent">
+
+          <div class="row">
+            <div class="col-xl-6 grid-margin stretch-card flex-column" >
+              
+                <h5 class="mb-2 text-titlecase mb-4">site statistics</h5>
+              <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <b>Welcome back,</b>john &#128075;
+                      </div>
+                      
+                      <canvas id="transactions-chart" class="mt-auto" height="65"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                          <p class="mb-2 text-muted">downloads</p>
+                          <h6 class="mb-0">563</h6>
+                        </div>
+                  
+                        <div>
+                          <p class="mb-2 text-muted">Search</p>
+                          <h6 class="mb-0">5900</h6>
+                        </div>
+                      </div>
+                      <canvas id="sales-chart-a" class="mt-auto" height="65"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row h-100">
+                <div class="col-md-6 stretch-card grid-margin grid-margin-md-0">
+                  <div class="card">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                      <p class="text-muted">movie downloads</p>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h3 class="mb-">27632</h3>
+                        <h3 class="mb-">78%</h3>
+                      </div>
+                      <canvas id="sales-chart-b" class="mt-auto" height="38"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row h-100">
+                        <div class="col-6 d-flex flex-column justify-content-between">
+                          <p class="text-muted">CPU</p>
+                          <h4>55%</h4>
+                          <canvas id="cpu-chart" class="mt-auto"></canvas>
+                        </div>
+                        <div class="col-6 d-flex flex-column justify-content-between">
+                          <p class="text-muted">Memory</p>
+                          <h4>123,65</h4>
+                          <canvas id="memory-chart" class="mt-auto"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 grid-margin stretch-card flex-column">
+              <h5 class="mb-2 text-titlecase mb-4 text-align-center" style="text-align: center;">profile</h5>
+              <div class="row h-100">
+                <div class="col-md-12 stretch-card">
+                  <div class="card-body" style="text-align: center; align-items: center; flex-direction: column;">
+                    <!-- <div class="card-body"> -->
+                      <!-- <div class="d-flex justify-content-between align-items-start flex-wrap"> -->
+                        <!-- <div class="d-flex justify-content-center align-items-center" style="background-color: red;"> -->
+                          <!-- <p class="mb-3">Monthly Increase</p>
+                          <h3>67842</h3> -->
+                          <img width="200px" height="200px" class="rounded-circle" src="data:image/jpeg;base64,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" alt="">
+                          <p class="mt-2">John Smith</p>
+                          <p><b>Role:</b> Super admin</p>
+                          <p><b>Status:</b> Online </p>
+                          <div></div>
+                        <!-- </div> -->
+                        <div id="income-chart-legend" class="d-flex flex-wrap mt-1 mt-md-0"></div>
+                      <!-- </div> -->
+                      <canvas id="income-chart"></canvas>
+                    <!-- </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="table-responsive pt-3">
+                  <table class="table table-striped project-orders-table">
+                    <thead>
+                      <tr>
+                        <th class="ml-5">ID</th>
+                        <th>Project name</th>
+                        <th>Customer</th>
+                        <th>Deadline</th>
+                        <th>Payouts	</th>
+                        <th>Traffic</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>#D1</td>
+                        <td>Consectetur adipisicing elit </td>
+                        <td>Beulah Cummings</td>
+                        <td>03 Jan 2019</td>
+                        <td>$ 5235</td>
+                        <td>1.3K</td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                              Edit
+                              <i class="typcn typcn-edit btn-icon-append"></i>                          
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm btn-icon-text">
+                              Delete
+                              <i class="typcn typcn-delete-outline btn-icon-append"></i>                          
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>#D2</td>
+                        <td>Correlation natural resources silo</td>
+                        <td>Mitchel Dunford</td>
+                        <td>09 Oct 2019</td>
+                        <td>$ 3233</td>
+                        <td>5.4K</td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                              Edit
+                              <i class="typcn typcn-edit btn-icon-append"></i>                          
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm btn-icon-text">
+                              Delete
+                              <i class="typcn typcn-delete-outline btn-icon-append"></i>                          
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>#D3</td>
+                        <td>social capital compassion social</td>
+                        <td>Pei Canaday</td>
+                        <td>18 Jun 2019</td>
+                        <td>$ 4311</td>
+                        <td>2.1K</td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                              Edit
+                              <i class="typcn typcn-edit btn-icon-append"></i>                          
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm btn-icon-text">
+                              Delete
+                              <i class="typcn typcn-delete-outline btn-icon-append"></i>                          
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>#D4</td>
+                        <td>empower communities thought</td>
+                        <td>Gaynell Sharpton</td>
+                        <td>23 Mar 2019</td>
+                        <td>$ 7743</td>
+                        <td>2.7K</td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                              Edit
+                              <i class="typcn typcn-edit btn-icon-append"></i>                          
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm btn-icon-text">
+                              Delete
+                              <i class="typcn typcn-delete-outline btn-icon-append"></i>                          
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>#D5</td>
+                        <td> Targeted effective; mobilize </td>
+                        <td>Audrie Midyett</td>
+                        <td>22 Aug 2019</td>
+                        <td>$ 2455</td>
+                        <td>1.2K</td>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                              Edit
+                              <i class="typcn typcn-edit btn-icon-append"></i>                          
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm btn-icon-text">
+                              Delete
+                              <i class="typcn typcn-delete-outline btn-icon-append"></i>                          
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a href="https://www.bootstrapdash.com/" class="text-muted" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-muted">Free <a href="https://www.bootstrapdash.com/" class="text-muted" target="_blank">Bootstrap dashboard</a> templates from Bootstrapdash.com</span>
+                    </div>
+                </div>    
+            </div>        
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+
+   <script src="{{url_for('static', filename='assets/thirdparties/jq.js')}}"></script>
+   <script src="{{url_for('static', filename='assets/scripts/adminDashboard.js')}}"></script>
+</body>
+
+</html>
+
