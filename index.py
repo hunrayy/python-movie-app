@@ -130,10 +130,10 @@ def uploadMovie():
             #     mysql.connection.commit()
             #     cursor.close()
             #     return render_template("adminDashboard.html", message="Movie uploaded successfully")
-            # if file and file.filename:
-            #     filename = secure_filename(file.filename)
-            #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            #     return jsonify("movie uploaded successfully")
+            if file and file.filename:
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                return jsonify("movie uploaded successfully")
 
         return render_template("upload_movie_form.html")
 
