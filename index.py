@@ -16,9 +16,9 @@ app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
-app.config["MAIL_USERNAME"] = "henryokiyi8@gmail.com"
+app.config["MAIL_USERNAME"] = "@gmail.com"
 app.config["MAIL_PASSWORD"] = ""
-app.config["MAIL_DEFAULT_SENDER"] = "henryokiyi8@gmail.com"
+app.config["MAIL_DEFAULT_SENDER"] = "@gmail.com"
 subject = "Test mail"
 mail = Mail(app)
 
@@ -52,7 +52,7 @@ def register():
 
     # send mail
     msg = Message(subject,
-                  recipients=email,
+                  recipients=[email],
                   sender=app.config['MAIL_DEFAULT_SENDER'])
     msg.body = "thanks for registering"
     mail.send(msg)
@@ -187,5 +187,43 @@ def getMovies():
 #             return jsonify({"error": str(e)})
 #         finally:
 #             cursor.close()
+
+
+
+
+   # print(email)
+    # dbcon = mysql.connection.cursor()
+    # if(dbcon):
+    #     sql = f"""
+    #     INSERT INTO user(username, password, email) VALUES(%s, %s, %s)"""
+    #     dbcon.execute(sql, (username, passhash, email))
+    #     mysql.connection.commit()
+    #     return render_template("login.html")
+    # return render_template("login.html")
+
+   
+    
+
+
+# email = request.form["email"]
+@app.route("/sendmail", methods=["POST"])
+def sendMail():
+    
+    # email = request.form.get("email")
+    data = request.get_json()
+    email = data.get("email")
+     # send mail
+    try:
+        msg = Message(subject,
+                recipients=[email],
+                sender=app.config['MAIL_DEFAULT_SENDER'])
+        msg.body = "wagwan!, thanks for registering"
+        mail.send(msg)
+        info = "Email sent successfully"
+        return jsonify(info)
+    except Exception as e:
+        return str(e)
+ 
+    
 if(__name__ == "__main__"):
     app.run(debug=True)
