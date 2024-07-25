@@ -4,6 +4,19 @@ from flask_mysqldb import MySQL
 from werkzeug.utils import secure_filename
 from flask_mail import Message, Mail
 import os
+
+
+from dotenv import load_dotenv
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+# Load environment variables from .env file
+load_dotenv()
+from_email = os.getenv('EMAIL_USER')
+password = os.getenv('EMAIL_PASS')
+
+
 app = Flask(__name__)
 
 app.config["MYSQL_HOST"] = "localhost"
@@ -16,9 +29,9 @@ app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
-app.config["MAIL_USERNAME"] = "@gmail.com"
-app.config["MAIL_PASSWORD"] = ""
-app.config["MAIL_DEFAULT_SENDER"] = "@gmail.com"
+app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
+app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
+app.config["MAIL_DEFAULT_SENDER"] = os.getenv("MAIL_USERNAME")
 subject = "Test mail"
 mail = Mail(app)
 
