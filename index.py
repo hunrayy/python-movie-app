@@ -230,7 +230,7 @@ def sendMail():
         msg = Message(subject,
                 recipients=[email],
                 sender=app.config['MAIL_DEFAULT_SENDER'])
-        msg.body = "wagwan!, thanks for registering"
+        msg.body = "Hey there!, thanks for registering"
         mail.send(msg)
         info = "Email sent successfully"
         return jsonify(info)
